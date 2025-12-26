@@ -15,11 +15,46 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
+    // 🔹 Ya EXISTÍA (no se toca)
     public Usuario guardar(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
 
+    // 🔹 Ya EXISTÍA (no se toca)
     public Optional<Usuario> buscarPorUsername(String username) {
         return usuarioRepository.findByUsername(username);
+    }
+
+    // Nuevo método agregado para validar login
+
+    public Optional<Usuario> login(String username, String password) {
+
+        Optional<Usuario> usuarioOpt = usuarioRepository.findByUsername(username);
+
+        if (usuarioOpt.isPresent()) {
+            Usuario usuario = usuarioOpt.get();
+
+            if (usuario.getPassword().equals(password) && usuario.isActivo()) {
+                return Optional.of(usuario);
+            }
+        }
+
+        return Optional.empty();
+    }
+
+
+    // 🔹 NUEVO METODO (ESTO SOLUCIONA EL ERROR)
+    public boolean validarLogin(String username, String password) {
+
+        Optional<Usuario> usuarioOpt = usuarioRepository.findByUsername(username);
+
+        if (usuarioOpt.isPresent()) {
+            Usuario usuario = usuarioOpt.get();
+
+            return usuario.getPassword().equals(password)
+                    && usuario.isActivo();
+        }
+
+        return false;
     }
 }

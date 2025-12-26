@@ -1,31 +1,48 @@
 package com.botica.botica_desktop;
 
-import com.botica.botica_desktop.entity.Usuario;
-import com.botica.botica_desktop.service.UsuarioService;
-import org.springframework.boot.CommandLineRunner;
+import com.botica.botica_desktop.config.SpringContext;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
-public class BoticaDesktopApplication {
+public class BoticaDesktopApplication extends Application {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BoticaDesktopApplication.class, args);
+	private static ConfigurableApplicationContext context;
+
+	@Override
+	public void init() {
+		context = SpringApplication.run(BoticaDesktopApplication.class);
+
+		// 🔥 ESTA LÍNEA ES LA CLAVE
+		SpringContext.setContext(context);
 	}
 
-	@Bean
-	CommandLineRunner initUsuarios(UsuarioService usuarioService) {
-		return args -> {
-			if (usuarioService.buscarPorUsername("admin").isEmpty()) {
-				Usuario admin = new Usuario();
-				admin.setUsername("admin");
-				admin.setPassword("admin123"); // luego lo encriptamos
-				admin.setRol("ADMIN");
+	@Override
+	public void start(Stage stage) throws Exception {
+		FXMLLoader loader = new FXMLLoader(
+				getClass().getResource("/javafx/login.fxml")
+		);
 
-				usuarioService.guardar(admin);
-				System.out.println("✔ Usuario admin creado");
-			}
-		};
+		// 🔥 JavaFX usa Spring
+		loader.setControllerFactory(context::getBean);
+
+		Scene scene = new Scene(loader.load(), 300, 250);
+		stage.setTitle("Botica - Login");
+		stage.setScene(scene);
+		stage.show();
+	}
+
+	@Override
+	public void stop() {
+		context.close();
+	}
+
+	public static void main(String[] args) {
+		launch(args);
 	}
 }

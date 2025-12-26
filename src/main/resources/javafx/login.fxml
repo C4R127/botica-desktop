@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.botica.botica_desktop.controller.LoginController">
+
+    <Label text="Sistema de Botica" style="-fx-font-size: 18px;" />
+
+    <TextField fx:id="txtUsername" promptText="Usuario" />
+
+    <PasswordField fx:id="txtPassword" promptText="Contraseña" />
+
+    <Button text="Ingresar" onAction="#login" />
+
+    <Label fx:id="lblMensaje" style="-fx-text-fill: red;" />
+
+</VBox>
