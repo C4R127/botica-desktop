@@ -10,9 +10,21 @@
             prefWidth="900" prefHeight="600">
 
     <top>
-        <HBox alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-padding: 15;">
-            <Label text="Gestión de Productos" styleClass="label-titulo"/>
-        </HBox>
+        <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);">
+            <HBox alignment="CENTER_LEFT">
+                <Label text="Gestión de Inventario" styleClass="label-titulo"/>
+            </HBox>
+
+            <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-background-color: #f8f9fa; -fx-padding: 10; -fx-background-radius: 5;">
+                <Label text="🔍 Buscar:"/>
+                <TextField fx:id="txtBuscar" promptText="Escribe el nombre del producto..." prefWidth="300"/>
+
+                <Separator orientation="VERTICAL"/>
+
+                <CheckBox fx:id="chkStockBajo" text=" Ver solo Stock Bajo"
+                          style="-fx-text-fill: #c0392b; -fx-font-weight: bold; -fx-cursor: hand;"/>
+            </HBox>
+        </VBox>
     </top>
 
     <center>

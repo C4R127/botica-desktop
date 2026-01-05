@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.botica.botica_desktop.controller.DashboardController"
@@ -10,39 +18,59 @@
             prefWidth="1000" prefHeight="700">
 
     <left>
-        <VBox prefWidth="220" styleClass="sidebar">
-            <Label text="BOTICA SYS" styleClass="sidebar-title" maxWidth="Infinity" alignment="CENTER"/>
+        <VBox spacing="15" style="-fx-background-color: #2c3e50; -fx-padding: 20; -fx-pref-width: 220;">
+            <Label text="BOTICA SYSTEM" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+            <Region prefHeight="20"/>
 
-            <VBox spacing="0" VBox.vgrow="ALWAYS">
-                <Button text="📦  Inventario / Productos"
-                        onAction="#abrirProductos"
-                        maxWidth="Infinity"
-                        styleClass="menu-button"/>
+            <Button text="📦 Productos" onAction="#abrirProductos" maxWidth="Infinity" styleClass="menu-button"/>
+            <Button text="🛒 Ventas" onAction="#abrirVentas" maxWidth="Infinity" styleClass="menu-button"/>
+            <Button text="📊 Historial" onAction="#abrirHistorial" maxWidth="Infinity" styleClass="menu-button"/>
 
-                <Button text="🛒  Ventas " onAction="#abrirVentas" maxWidth="Infinity" styleClass="menu-button"/>
-                <Button text="👥  Usuarios (Próximamente)" maxWidth="Infinity" styleClass="menu-button" disable="true"/>
-                <Button text="📊  Historial de Ventas" onAction="#abrirHistorial" maxWidth="Infinity" styleClass="menu-button"/>
-            </VBox>
-
-            <Label text="v1.0.0" style="-fx-text-fill: #7f8c8d; -fx-padding: 10;" alignment="CENTER" maxWidth="Infinity"/>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="🚪 Cerrar Sesión" onAction="#cerrarSesion" maxWidth="Infinity" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
         </VBox>
     </left>
 
-    <top>
-        <HBox styleClass="top-bar" alignment="CENTER_RIGHT" spacing="15">
-            <Label fx:id="lblBienvenida" text="Bienvenido, Usuario" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
-            <Button text="Cerrar Sesión" onAction="#cerrarSesion" styleClass="button, btn-eliminar" style="-fx-font-size: 12px;"/>
-        </HBox>
-    </top>
-
     <center>
-        <StackPane style="-fx-background-color: #ecf0f1; -fx-padding: 30;">
-            <VBox alignment="CENTER" spacing="20">
-                <Label text="Bienvenido al Sistema de Gestión" styleClass="label-titulo" style="-fx-font-size: 32px;"/>
-                <Label text="Seleccione una opción del menú lateral para comenzar."
-                       style="-fx-text-fill: #7f8c8d; -fx-font-size: 16px;"/>
-            </VBox>
-        </StackPane>
-    </center>
+        <VBox spacing="20" style="-fx-padding: 20; -fx-background-color: #f4f6f7;">
 
+            <Label fx:id="lblBienvenida" text="Bienvenido" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+
+            <HBox spacing="20">
+                <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);" HBox.hgrow="ALWAYS">
+                    <Label text="Ventas de Hoy" style="-fx-text-fill: #7f8c8d;"/>
+                    <Label fx:id="lblTotalVentasHoy" text="S/. 0.00" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #27ae60;"/>
+                </VBox>
+
+                <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);" HBox.hgrow="ALWAYS">
+                    <Label text="⚠️ Stock Crítico" style="-fx-text-fill: #7f8c8d;"/>
+                    <Label fx:id="lblProductosBajos" text="0" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #e74c3c;"/>
+                </VBox>
+
+                <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);" HBox.hgrow="ALWAYS">
+                    <Label text="Total Productos" style="-fx-text-fill: #7f8c8d;"/>
+                    <Label fx:id="lblTotalInventario" text="0" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2980b9;"/>
+                </VBox>
+            </HBox>
+
+            <HBox spacing="20" VBox.vgrow="ALWAYS">
+                <VBox style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 10;" HBox.hgrow="ALWAYS">
+                    <Label text="Top 10 Más Vendidos" style="-fx-font-weight: bold; -fx-padding: 0 0 0 10;"/>
+                    <BarChart fx:id="graficoBarras" legendVisible="false">
+                        <xAxis><CategoryAxis label="Producto"/></xAxis>
+                        <yAxis><NumberAxis label="Cantidad"/></yAxis>
+                    </BarChart>
+                </VBox>
+
+                <VBox style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 10;" HBox.hgrow="ALWAYS">
+                    <Label text="Tendencia de Ingresos (7 Días)" style="-fx-font-weight: bold; -fx-padding: 0 0 0 10;"/>
+                    <LineChart fx:id="graficoLineas" legendVisible="false">
+                        <xAxis><CategoryAxis label="Día"/></xAxis>
+                        <yAxis><NumberAxis label="Soles (S/.)"/></yAxis>
+                    </LineChart>
+                </VBox>
+            </HBox>
+
+        </VBox>
+    </center>
 </BorderPane>

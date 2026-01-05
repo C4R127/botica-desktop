@@ -12,6 +12,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import org.springframework.data.domain.PageRequest;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
+
 import java.util.List;
 
 @Service
@@ -86,6 +91,35 @@ public class VentaService {
         LocalDateTime fechaFin = fin.atTime(LocalTime.MAX); // 23:59:59.999
 
         return ventaRepository.buscarPorRangoFecha(fechaInicio, fechaFin);
+    }
+
+    // Obtener Top 10
+    public List<Object[]> obtenerTopProductos() {
+        // CORRECCIÓN: Llamamos al método sin argumentos (el límite 10 ya está en el SQL)
+        return ventaRepository.encontrarProductosMasVendidos();
+    }
+
+    // Obtener Ventas Últimos 7 Días (Mapa: Fecha -> Total Dinero)
+    public Map<String, Double> obtenerVentasUltimaSemana() {
+        LocalDateTime hace7dias = LocalDateTime.now().minusDays(6).withHour(0).withMinute(0);
+        List<Venta> ventas = ventaRepository.encontrarVentasDesde(hace7dias);
+
+        // Agrupar por día y sumar totales
+        Map<String, Double> resultado = new TreeMap<>(); // TreeMap mantiene el orden de fechas
+
+        // Inicializar los 7 días en 0 (para que el gráfico no tenga huecos)
+        for (int i = 0; i < 7; i++) {
+            String fechaKey = hace7dias.plusDays(i).toLocalDate().toString();
+            resultado.put(fechaKey, 0.0);
+        }
+
+        // Llenar con datos reales
+        for (Venta v : ventas) {
+            String fechaKey = v.getFecha().toLocalDate().toString();
+            resultado.put(fechaKey, resultado.getOrDefault(fechaKey, 0.0) + v.getTotal());
+        }
+
+        return resultado;
     }
 
 }

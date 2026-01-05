@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 @Repository
@@ -33,4 +35,16 @@ public interface VentaRepository extends JpaRepository<Venta, Long> {
             "WHERE v.fecha BETWEEN :inicio AND :fin")
     List<Venta> buscarPorRangoFecha(LocalDateTime inicio, LocalDateTime fin);
 
+    //Para el Top 10 Productos (Devuelve una lista de [Nombre, Cantidad])
+    @Query(value = "SELECT p.nombre, SUM(d.cantidad) " +
+            "FROM detalle_ventas d " +
+            "JOIN productos p ON d.producto_id = p.id " +
+            "GROUP BY p.nombre " +
+            "ORDER BY SUM(d.cantidad) DESC " +
+            "LIMIT 10", nativeQuery = true)
+    List<Object[]> encontrarProductosMasVendidos();
+
+    //Para la Gráfica de 7 días (Trae ventas desde una fecha X)
+    @Query("SELECT v FROM Venta v WHERE v.fecha >= :fechaInicio")
+    List<Venta> encontrarVentasDesde(LocalDateTime fechaInicio);
 }
