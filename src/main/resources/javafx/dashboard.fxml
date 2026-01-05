@@ -1,24 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml"
+<BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.botica.botica_desktop.controller.DashboardController"
-            prefWidth="600" prefHeight="400">
+            stylesheets="@estilos.css"
+            prefWidth="1000" prefHeight="700">
 
-    <children>
-        <Label fx:id="lblBienvenida"
-               text="Cargando..."
-               layoutX="180"
-               layoutY="150"
-               style="-fx-font-size: 18px;" />
+    <left>
+        <VBox prefWidth="220" styleClass="sidebar">
+            <Label text="BOTICA SYS" styleClass="sidebar-title" maxWidth="Infinity" alignment="CENTER"/>
 
-        <Button text="Cerrar sesión"
-                layoutX="250"
-                layoutY="220"
-                onAction="#cerrarSesion"/>
-    </children>
+            <VBox spacing="0" VBox.vgrow="ALWAYS">
+                <Button text="📦  Inventario / Productos"
+                        onAction="#abrirProductos"
+                        maxWidth="Infinity"
+                        styleClass="menu-button"/>
 
-</AnchorPane>
+                <Button text="🛒  Ventas " onAction="#abrirVentas" maxWidth="Infinity" styleClass="menu-button"/>
+                <Button text="👥  Usuarios (Próximamente)" maxWidth="Infinity" styleClass="menu-button" disable="true"/>
+                <Button text="📊  Historial de Ventas" onAction="#abrirHistorial" maxWidth="Infinity" styleClass="menu-button"/>
+            </VBox>
+
+            <Label text="v1.0.0" style="-fx-text-fill: #7f8c8d; -fx-padding: 10;" alignment="CENTER" maxWidth="Infinity"/>
+        </VBox>
+    </left>
+
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_RIGHT" spacing="15">
+            <Label fx:id="lblBienvenida" text="Bienvenido, Usuario" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+            <Button text="Cerrar Sesión" onAction="#cerrarSesion" styleClass="button, btn-eliminar" style="-fx-font-size: 12px;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <StackPane style="-fx-background-color: #ecf0f1; -fx-padding: 30;">
+            <VBox alignment="CENTER" spacing="20">
+                <Label text="Bienvenido al Sistema de Gestión" styleClass="label-titulo" style="-fx-font-size: 32px;"/>
+                <Label text="Seleccione una opción del menú lateral para comenzar."
+                       style="-fx-text-fill: #7f8c8d; -fx-font-size: 16px;"/>
+            </VBox>
+        </StackPane>
+    </center>
+
+</BorderPane>

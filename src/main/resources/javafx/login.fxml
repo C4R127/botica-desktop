@@ -1,20 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="10" alignment="CENTER"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.botica.botica_desktop.controller.LoginController">
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.botica.botica_desktop.controller.LoginController"
+           stylesheets="@estilos.css"
+           styleClass="login-background"
+           prefWidth="600" prefHeight="450">
 
-    <Label text="Sistema de Botica" style="-fx-font-size: 18px;" />
+    <VBox spacing="20" alignment="CENTER" styleClass="login-card">
 
-    <TextField fx:id="txtUsername" promptText="Usuario" />
+        <Label text="Farmacia" styleClass="login-title"/>
+        <Label text="Acceso al Sistema" style="-fx-text-fill: #7f8c8d; -fx-font-size: 14px;"/>
 
-    <PasswordField fx:id="txtPassword" promptText="Contraseña" />
+        <VBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="Usuario" style="-fx-font-weight: bold;"/>
+            <TextField fx:id="txtUsername" promptText="Ingrese su usuario" prefHeight="35"/>
+        </VBox>
 
-    <Button text="Ingresar" onAction="#login" />
+        <VBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="Contraseña" style="-fx-font-weight: bold;"/>
+            <PasswordField fx:id="txtPassword" promptText="Ingrese su contraseña" prefHeight="35"/>
+        </VBox>
 
-    <Label fx:id="lblMensaje" style="-fx-text-fill: red;" />
+        <Button text="INICIAR SESIÓN"
+                onAction="#login"
+                defaultButton="true"
+                maxWidth="Infinity"
+                styleClass="button, btn-guardar"
+                style="-fx-font-size: 14px; -fx-padding: 10;"/>
 
-</VBox>
+        <Label fx:id="lblMensaje" styleClass="error-label"/>
+
+    </VBox>
+
+</StackPane>

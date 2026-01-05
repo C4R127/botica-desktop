@@ -28,23 +28,20 @@ public class DashboardController {
     @FXML
     private void cerrarSesion() {
         try {
-            // 1️⃣ Limpiar sesión
+            // 1. Limpiar sesión
             SesionUsuario.cerrarSesion();
 
-            // 2️⃣ Cerrar dashboard
+            // 2. Cerrar dashboard actual
             Stage stageActual = (Stage) lblBienvenida.getScene().getWindow();
             stageActual.close();
 
-            // 3️⃣ Volver a abrir login
+            // 3. Volver a abrir login
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/javafx/login.fxml")
             );
-            loader.setControllerFactory(
-                    SpringContext.getContext()::getBean
-            );
+            loader.setControllerFactory(SpringContext.getContext()::getBean);
 
             Parent root = loader.load();
-
             Stage stageLogin = new Stage();
             stageLogin.setTitle("Login - Botica");
             stageLogin.setScene(new Scene(root));
@@ -54,4 +51,48 @@ public class DashboardController {
             e.printStackTrace();
         }
     }
+
+    // === MÉTODOS DE NAVEGACIÓN ===
+
+    // Este era el que faltaba y causaba el error
+    @FXML
+    public void abrirProductos() throws Exception {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/javafx/productos.fxml")
+        );
+        loader.setControllerFactory(SpringContext.getContext()::getBean);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(loader.load()));
+        stage.setTitle("Gestión de Productos");
+        stage.show();
+    }
+
+    // Este es el nuevo para ventas
+    @FXML
+    public void abrirVentas() throws Exception {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/javafx/ventas.fxml")
+        );
+        loader.setControllerFactory(SpringContext.getContext()::getBean);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(loader.load()));
+        stage.setTitle("Punto de Venta");
+        stage.show();
+    }
+
+    @FXML
+    public void abrirHistorial() throws Exception {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/javafx/historial.fxml")
+        );
+        loader.setControllerFactory(SpringContext.getContext()::getBean);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(loader.load()));
+        stage.setTitle("Historial de Ventas");
+        stage.show();
+    }
+
 }

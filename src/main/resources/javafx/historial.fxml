@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.botica.botica_desktop.controller.HistorialController"
+            stylesheets="@estilos.css"
+            prefWidth="900" prefHeight="600">
+
+    <top>
+        <VBox>
+            <HBox style="-fx-background-color: white; -fx-padding: 15 15 5 15;">
+                <Label text="Historial de Transacciones" styleClass="label-titulo"/>
+            </HBox>
+
+            <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-padding: 0 15 15 15;">
+                <Label text="Desde:" style="-fx-font-weight: bold;"/>
+                <DatePicker fx:id="dpDesde" prefWidth="120"/>
+
+                <Label text="Hasta:" style="-fx-font-weight: bold;"/>
+                <DatePicker fx:id="dpHasta" prefWidth="120"/>
+
+                <Button text="🔍 Filtrar" onAction="#filtrarVentas" styleClass="button, btn-guardar"/>
+
+                <Button text="🔄 Ver Todo" onAction="#limpiarFiltros" styleClass="button, btn-limpiar"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <HBox spacing="20" style="-fx-padding: 20;">
+
+            <VBox spacing="10" HBox.hgrow="ALWAYS">
+                <Label text="Listado General" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                <TableView fx:id="tablaVentas" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                        <TableColumn fx:id="colFecha" text="Fecha y Hora" prefWidth="150"/>
+                        <TableColumn fx:id="colVendedor" text="Vendedor" prefWidth="100"/>
+                        <TableColumn fx:id="colTotal" text="Total (S/.)" prefWidth="80"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </VBox>
+
+            <VBox spacing="10" prefWidth="350" styleClass="form-container">
+                <Label fx:id="lblDetalleVenta" text="Seleccione una venta..."
+                       style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #2980b9;"/>
+
+                <TableView fx:id="tablaDetalles" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colProducto" text="Producto" prefWidth="150"/>
+                        <TableColumn fx:id="colCantidad" text="Cant." prefWidth="60"/>
+                        <TableColumn fx:id="colSubtotal" text="Subt." prefWidth="70"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </VBox>
+
+        </HBox>
+    </center>
+
+</BorderPane>
