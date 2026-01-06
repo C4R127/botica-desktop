@@ -15,8 +15,11 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    // 🔹 Ya EXISTÍA (no se toca)
     public Usuario guardar(Usuario usuario) {
+        // Verificamos si ya existe el usuario
+        if (usuario.getId() == null && usuarioRepository.findByUsername(usuario.getUsername()).isPresent()) {
+            throw new RuntimeException("El usuario ya existe.");
+        }
         return usuarioRepository.save(usuario);
     }
 

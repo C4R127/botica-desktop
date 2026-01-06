@@ -10,7 +10,7 @@
            styleClass="login-background"
            prefWidth="600" prefHeight="450">
 
-    <VBox spacing="20" alignment="CENTER" styleClass="login-card">
+    <VBox spacing="20" alignment="CENTER" styleClass="login-card" maxWidth="350">
 
         <Label text="Farmacia" styleClass="login-title"/>
         <Label text="Acceso al Sistema" style="-fx-text-fill: #7f8c8d; -fx-font-size: 14px;"/>
@@ -31,6 +31,11 @@
                 maxWidth="Infinity"
                 styleClass="button, btn-guardar"
                 style="-fx-font-size: 14px; -fx-padding: 10;"/>
+
+        <Button text="¿No tienes cuenta? Regístrate aquí"
+                onAction="#abrirRegistro"
+                maxWidth="Infinity"
+                style="-fx-background-color: transparent; -fx-text-fill: #2980b9; -fx-underline: true; -fx-cursor: hand; -fx-font-size: 12px;"/>
 
         <Label fx:id="lblMensaje" styleClass="error-label"/>
 

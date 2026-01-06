@@ -1,5 +1,6 @@
 package com.botica.botica_desktop.controller;
 
+import com.botica.botica_desktop.config.SpringContext;
 import com.botica.botica_desktop.entity.Usuario;
 import com.botica.botica_desktop.service.UsuarioService;
 import com.botica.botica_desktop.session.SesionUsuario;
@@ -53,6 +54,21 @@ public class LoginController {
         }
     }
 
+    @FXML
+    public void abrirRegistro() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/javafx/registro.fxml"));
+            loader.setControllerFactory(SpringContext.getContext()::getBean);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(loader.load()));
+            stage.setTitle("Registro - Botica");
+            stage.show(); // Abre la ventana sin cerrar el Login
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private void abrirDashboard() {
         try {
@@ -74,7 +90,6 @@ public class LoginController {
             e.printStackTrace();
         }
     }
-
 
 
     private void cerrarVentanaLogin() {

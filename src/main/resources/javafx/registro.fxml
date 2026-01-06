@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.botica.botica_desktop.controller.RegistroController"
+      alignment="CENTER" spacing="15"
+      style="-fx-padding: 30; -fx-background-color: white; -fx-border-color: #bdc3c7; -fx-border-width: 2;"
+      prefWidth="350" prefHeight="400">
+
+    <Label text="Registro de Personal" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+    <Label text="Crea tu cuenta para acceder al sistema" style="-fx-text-fill: #7f8c8d;"/>
+
+    <Separator/>
+
+    <TextField fx:id="txtUser" promptText="Nombre de Usuario" style="-fx-font-size: 14px;"/>
+    <PasswordField fx:id="txtPass" promptText="Contraseña" style="-fx-font-size: 14px;"/>
+    <PasswordField fx:id="txtPassConfirm" promptText="Confirmar Contraseña" style="-fx-font-size: 14px;"/>
+
+    <Separator opacity="0"/> <Button text="Registrarme" onAction="#registrarse"
+                                     maxWidth="Infinity"
+                                     style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10; -fx-cursor: hand;"/>
+
+    <Button text="Cancelar" onAction="#cerrarVentana"
+            maxWidth="Infinity"
+            style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 10; -fx-cursor: hand;"/>
+</VBox>

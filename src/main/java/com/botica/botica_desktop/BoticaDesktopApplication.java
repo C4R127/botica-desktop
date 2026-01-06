@@ -18,7 +18,7 @@ public class BoticaDesktopApplication extends Application {
 	public void init() {
 		context = SpringApplication.run(BoticaDesktopApplication.class);
 
-		// 🔥 ESTA LÍNEA ES LA CLAVE
+		// Guardamos el contexto de Spring para usarlo en los controladores
 		SpringContext.setContext(context);
 	}
 
@@ -28,13 +28,24 @@ public class BoticaDesktopApplication extends Application {
 				getClass().getResource("/javafx/login.fxml")
 		);
 
-		// 🔥 JavaFX usa Spring
+		// JavaFX usa los beans de Spring
 		loader.setControllerFactory(context::getBean);
 
-		Scene scene = new Scene(loader.load(), 300, 250);
+		// --- CAMBIOS REALIZADOS AQUÍ ---
+		// 1. Establecemos el tamaño fijo de 600x450
+		Scene scene = new Scene(loader.load(), 600, 450);
+
 		stage.setTitle("Botica - Login");
 		stage.setScene(scene);
+
+		// 2. Bloqueamos el redimensionamiento
+		stage.setResizable(false);
+
+		// 3. (Opcional) Centramos la ventana al iniciar
+		stage.centerOnScreen();
+
 		stage.show();
+		// -------------------------------
 	}
 
 	@Override

@@ -103,23 +103,48 @@ public class DashboardController {
     @FXML
     private void cerrarSesion() {
         try {
+            // 1. Limpiamos la sesión
             SesionUsuario.cerrarSesion();
+
+            // 2. Cerramos la ventana GRANDE actual
             Stage stageActual = (Stage) lblBienvenida.getScene().getWindow();
             stageActual.close();
 
+            // 3. Preparamos la ventana de LOGIN
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/javafx/login.fxml"));
             loader.setControllerFactory(SpringContext.getContext()::getBean);
             Parent root = loader.load();
+
             Stage stageLogin = new Stage();
             stageLogin.setTitle("Login - Botica");
-            stageLogin.setScene(new Scene(root));
+
+            // --- CORRECCIÓN DE TAMAÑO ---
+            // Forzamos el tamaño exacto de 600x450 y prohibimos cambiarlo
+            Scene scene = new Scene(root, 600, 450);
+            stageLogin.setScene(scene);
+            stageLogin.setResizable(false); // ESTO BLOQUEA QUE SE AGRANDE
+            stageLogin.centerOnScreen();    // LA CENTRA EN TU MONITOR
+            // -----------------------------
+
             stageLogin.show();
-        } catch (Exception e) { e.printStackTrace(); }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     public void abrirProductos() throws Exception {
-        abrirVentana("/javafx/productos.fxml", "Gestión de Productos");
+        // 1. Abrimos la ventana y guardamos la referencia
+        Stage stage = abrirVentana("/javafx/productos.fxml", "Gestión de Productos");
+
+        // 2. DETECTOR: Cuando cierres la ventana de productos...
+        stage.setOnHidden(event -> {
+            System.out.println("Recalculando inventario en Dashboard...");
+            cargarKPIs();           // Actualiza el contador de "Stock Crítico"
+            cargarGraficoBarras();  // Actualiza nombres si editaste alguno
+            // cargarGraficoLineas(); // (Opcional) No suele cambiar al editar productos
+        });
     }
 
     @FXML
