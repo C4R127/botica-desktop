@@ -69,7 +69,7 @@
     -fx-background-color: #34495e; /* Encabezado oscuro */
 }
 .table-view .column-header .label {
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-font-weight: bold;
 }
 
