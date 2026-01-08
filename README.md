@@ -24,10 +24,10 @@ Si deseas generar el instalador desde este código fuente, sigue estos pasos:
 ### 1. Generar el JAR
 Ejecuta el ciclo de vida de Maven para limpiar y empaquetar el proyecto con las dependencias de H2:
 
-```bash
+
 mvn clean package
 Esto generará el archivo en /target/botica-desktop-0.0.1-SNAPSHOT.jar.
-```
+
 Esto generará el archivo en /target/botica-desktop-0.0.1-SNAPSHOT.jar.
 
 2. Convertir a EXE (Launch4j)
