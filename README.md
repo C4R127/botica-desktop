@@ -27,6 +27,8 @@ Ejecuta el ciclo de vida de Maven para limpiar y empaquetar el proyecto con las 
 ```bash
 mvn clean package
 Esto generará el archivo en /target/botica-desktop-0.0.1-SNAPSHOT.jar.
+```
+Esto generará el archivo en /target/botica-desktop-0.0.1-SNAPSHOT.jar.
 
 2. Convertir a EXE (Launch4j)
 Utiliza la herramienta Launch4j con la siguiente configuración recomendada:
@@ -52,29 +54,27 @@ Java Runtime (JRE/JDK) 21 instalado.
 Credenciales por Defecto (Primer Uso)
 El sistema generará automáticamente un usuario administrador si la base de datos está vacía:
 
-Rol	Usuario	Contraseña
-Administrador	admin	admin123
-
-Exportar a Hojas de cálculo
+Rol,Usuario,Contraseña
+Administrador,admin,admin123
 
 📂 Estructura de Archivos en Producción
 Una vez instalado/ejecutado, la carpeta del usuario se verá así:
-
-Plaintext
 
 /Carpeta_Del_Programa
 │
 ├── Sistema Botica.exe    <-- Ejecutable principal
 ├── botica_db.mv.db       <-- Base de datos (NO BORRAR)
 └── botica_db.trace.db    <-- Log de transacciones (temporal)
-🔧 Diferencias Técnicas con la Rama Main
-Característica	Rama main (Dev)	Rama version-portable
-Base de Datos	MySQL (Puerto 3306)	H2 File (Local Storage)
-Driver	mysql-connector-j	com.h2database:h2
-Persistencia	Servidor XAMPP requerido	Archivo .mv.db autónomo
-Propósito	Desarrollo y Tests	Producción y Distribución
 
-Exportar a Hojas de cálculo
+🔧 Diferencias Técnicas con la Rama Main
+
+Característica,Rama main (Dev),Rama version-portable
+Base de Datos,MySQL (Puerto 3306),H2 File (Local Storage)
+Driver,mysql-connector-j,com.h2database:h2
+Persistencia,Servidor XAMPP requerido,Archivo .mv.db autónomo
+Propósito,Desarrollo y Tests,Producción y Distribución
+
+---
 
 👤 Autor
 [Carlos Eduardo Barra Cconcho] Full Stack Developer
