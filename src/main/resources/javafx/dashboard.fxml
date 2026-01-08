@@ -43,7 +43,7 @@
                 </VBox>
 
                 <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);" HBox.hgrow="ALWAYS">
-                    <Label text="⚠️ Stock Crítico" style="-fx-text-fill: #7f8c8d;"/>
+                    <Label text="Stock Crítico" style="-fx-text-fill: #7f8c8d;"/>
                     <Label fx:id="lblProductosBajos" text="0" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #e74c3c;"/>
                 </VBox>
 
